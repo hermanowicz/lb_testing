@@ -7,7 +7,7 @@ module "workers" {
 
   instance_type               = "t3.micro"
   key_name                    = "eu-west-1-labs"
-  ami                         = "ami-0e063207e92b63437"
+  ami                         = "ami-0df5428164f725e3a"
   monitoring                  = true
   vpc_security_group_ids      = [aws_security_group.worker-instance-sg.id]
   subnet_id                   = module.vpc.private_subnets[1]

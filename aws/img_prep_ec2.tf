@@ -1,6 +1,7 @@
 module "img_prep" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
+  # create = false
   name = "img_prep"
 
   instance_type               = "t3.large"
