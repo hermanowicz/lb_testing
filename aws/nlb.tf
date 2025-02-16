@@ -5,10 +5,12 @@ module "nlb" {
   load_balancer_type = "network"
   vpc_id             = module.vpc.vpc_id
   subnets            = [module.vpc.public_subnets]
+  enable_cross_zone_load_balancing = true
 
   # Security Group
   enforce_security_group_inbound_rules_on_private_link_traffic = "on"
   security_group_ingress_rules = {
+
     all_http = {
       from_port   = 80
       to_port     = 3000
@@ -16,6 +18,7 @@ module "nlb" {
       description = "HTTP web traffic"
       cidr_ipv4   = "0.0.0.0/0"
     }
+
     all_https = {
       from_port   = 443
       to_port     = 445
@@ -61,7 +64,7 @@ module "nlb" {
       name        = "node-1"
       port        = 3000
       target_type = "ip"
-      target_id   = "10.0.47.1"
+      target_id   = module.worker-one.private_ip
     }
 
     ex-target-two = {
@@ -69,7 +72,7 @@ module "nlb" {
       protocol    = "TCP"
       port        = 3000
       target_type = "ip"
-      target_id   = "10.0.47.1"
+      target_id   = module.worker-two.private_ip
     }
 
     ex-target-third = {
@@ -77,7 +80,7 @@ module "nlb" {
       protocol    = "TCP"
       port        = 3000
       target_type = "ip"
-      target_id   = "10.0.47.1"
+      target_id   = module.worker-three.private_ip
     }
   }
 

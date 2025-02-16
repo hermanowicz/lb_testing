@@ -1,9 +1,7 @@
-module "workers" {
+module "worker-three" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
-  for_each = toset(["worker-one", "worker-two", "worker-three"])
-
-  name = "instance-${each.key}"
+  name = "worker-three"
 
   instance_type               = "t3.micro"
   key_name                    = "eu-west-1-labs"
@@ -15,7 +13,7 @@ module "workers" {
   iam_instance_profile        = "SSM_EC2"
 
   // for tests
-  create = false
+  create = true
 
   tags = {
     Terraform   = "true"
