@@ -4,7 +4,7 @@
 *.tfvars
 .terraform
 .env
-
+.idea
 
 # Python-generated files
 __pycache__/
