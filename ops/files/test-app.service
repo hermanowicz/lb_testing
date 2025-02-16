@@ -1,0 +1,15 @@
+[Unit]
+Description = test-app
+
+[Service]
+Type             = simple
+User             = root
+Group            = root
+LimitNOFILE      = 4096
+Restart          = always
+RestartSec       = 5s
+WorkingDirectory = /root/test_app
+ExecStart        = /root/test_app/test-app
+
+[Install]
+WantedBy = multi-user.target
