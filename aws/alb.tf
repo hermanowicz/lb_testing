@@ -1,4 +1,4 @@
-module "nlb" {
+module "alb" {
   source = "terraform-aws-modules/alb/aws"
 
   // for now
@@ -7,10 +7,10 @@ module "nlb" {
   // github docs
   // https://github.com/terraform-aws-modules/terraform-aws-alb
 
-  name               = "lb-alb-1"
-  load_balancer_type = "application"
-  vpc_id             = module.vpc.vpc_id
-  subnets            = [module.vpc.public_subnets]
+  name                             = "lb-alb-1"
+  load_balancer_type               = "application"
+  vpc_id                           = module.vpc.vpc_id
+  subnets                          = [module.vpc.public_subnets[0], module.vpc.public_subnets[1], module.vpc.public_subnets[2]]
   enable_cross_zone_load_balancing = true
 
   # Security Group
