@@ -16,6 +16,7 @@ module "worker-two" {
   create = true
 
   tags = {
+    Name        = "worker-2"
     Terraform   = "true"
     Environment = "dev"
   }

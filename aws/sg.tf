@@ -46,9 +46,17 @@ resource "aws_security_group" "worker-instance-sg" {
   description = "group used for lb testing used on worker nodes"
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
+    cidr_blocks = [module.vpc.vpc_cidr_block]
+    description = "ssh from open internet"
+  }
+
+  ingress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "udp"
     cidr_blocks = [module.vpc.vpc_cidr_block]
     description = "ssh from open internet"
   }
@@ -57,22 +65,6 @@ resource "aws_security_group" "worker-instance-sg" {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = [module.vpc.vpc_cidr_block]
-    description = "ping from open internet"
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [module.vpc.vpc_cidr_block]
-    description = "ping from open internet"
-  }
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
     cidr_blocks = [module.vpc.vpc_cidr_block]
     description = "ping from open internet"
   }
