@@ -8,19 +8,11 @@ resource "aws_security_group" "builder-instance-sg" {
   }
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 0
+    to_port     = 65500
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "ssh from open internet"
-  }
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "test-app port, for in process testing."
   }
 
   ingress {
