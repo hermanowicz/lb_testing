@@ -38,14 +38,14 @@
 
 # resource "aws_lb_target_group" "alb-target-group" {
 #   name        = "alb-test-labs"
-#   port        = 3000
+#   port        = 80
 #   protocol    = "HTTP"
 #   vpc_id      = module.vpc.vpc_id
 #   target_type = "instance"
 
 #   health_check {
 #     enabled             = true
-#     path                = "/ping"
+#     path                = "/"
 #     matcher             = "200"
 #     protocol            = "HTTP"
 #     interval            = 10
@@ -69,17 +69,12 @@
 # resource "aws_lb_target_group_attachment" "alb-via-ip-group-attachment-1" {
 #   target_group_arn = aws_lb_target_group.alb-target-group.arn
 #   target_id        = module.worker-one.id
-#   port             = 3000
+#   port             = 80
 # }
 
 # resource "aws_lb_target_group_attachment" "alb-via-ip-group-attachment-2" {
 #   target_group_arn = aws_lb_target_group.alb-target-group.arn
 #   target_id        = module.worker-two.id
-#   port             = 3000
+#   port             = 80
 # }
 
-# resource "aws_lb_target_group_attachment" "alb-via-ip-group-attachment-3" {
-#   target_group_arn = aws_lb_target_group.alb-target-group.arn
-#   target_id        = module.worker-three.id
-#   port             = 3000
-# }

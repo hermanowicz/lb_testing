@@ -4,7 +4,7 @@ module "vpc" {
   name = "lb-labs"
   cidr = "10.0.0.0/16"
 
-  azs                                                        = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  azs                                                        = ["${var.region}a", "${var.region}b", "${var.region}c"]
   private_subnets                                            = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   private_subnet_names                                       = ["private-subnet-1", "private-subnet-2", "private-subnet-3"]
   private_subnet_enable_resource_name_dns_a_record_on_launch = true
