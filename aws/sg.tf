@@ -8,11 +8,27 @@ resource "aws_security_group" "builder-instance-sg" {
   }
 
   ingress {
-    from_port   = 0
-    to_port     = 65500
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "ssh from open internet"
+  }
+
+    ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "test-app from open internet"
+  }
+
+    ingress {
+    from_port   = 50000
+    to_port     = 50000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "conn from open internet"
   }
 
   ingress {
@@ -38,17 +54,25 @@ resource "aws_security_group" "worker-instance-sg" {
   description = "group used for lb testing used on worker nodes"
 
   ingress {
-    from_port   = 0
-    to_port     = 65535
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [module.vpc.vpc_cidr_block]
     description = "ssh from open internet"
   }
 
   ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "udp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [module.vpc.vpc_cidr_block]
+    description = "http (nginx) from open internet"
+  }
+
+    ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
     cidr_blocks = [module.vpc.vpc_cidr_block]
     description = "ssh from open internet"
   }
@@ -65,7 +89,7 @@ resource "aws_security_group" "worker-instance-sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [module.vpc.vpc_cidr_block]
     description = "default egress to internet"
   }
 }
